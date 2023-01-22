@@ -1,11 +1,12 @@
-package ru.kata.pp_3_1_5_rest.controllers;
+package ru.kata.pp_3_1_5_rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.pp_3_1_5_rest.services.UserService;
+import ru.kata.pp_3_1_5_rest.model.User;
+import ru.kata.pp_3_1_5_rest.service.UserService;
 
 import java.security.Principal;
 
@@ -19,10 +20,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
-    public String userPage(Model model, Principal principal) {
-        Long id = userService.findByEmail(principal.getName()).getId();
-        model.addAttribute("user", userService.getUser(id));
-        return "userInfo";
+    @GetMapping
+    public String getUser(Model model, Principal principal) {
+        User messages = userService.findUserByName(principal.getName());
+        model.addAttribute("messages", messages);
+        return "user";
     }
 }

@@ -1,4 +1,4 @@
-package ru.kata.pp_3_1_5_rest.models;
+package ru.kata.pp_3_1_5_rest.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -21,7 +21,12 @@ public class Role implements GrantedAuthority {
 
     }
 
-    public Role(String role) {
+    public Role(Long id) {
+        this.id = id;
+    }
+
+    public Role(Long id, String role) {
+        this.id = id;
         this.role = role;
     }
 
@@ -50,8 +55,8 @@ public class Role implements GrantedAuthority {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role comparableRole = (Role) o;
-        return Objects.equals(id, comparableRole.id) && Objects.equals(role, comparableRole.role);
+        Role role1 = (Role) o;
+        return Objects.equals(id, role1.id) && Objects.equals(role, role1.role);
     }
 
     @Override
@@ -61,6 +66,12 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return role;
+        if (role.equals("ROLE_ADMIN")) {
+            return "ADMIN";
+        } else if (role.equals("ROLE_USER")) {
+            return "USER";
+        } else {
+            return "ADMIN USER";
+        }
     }
 }

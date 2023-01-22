@@ -1,11 +1,11 @@
-package ru.kata.pp_3_1_5_rest.init;
+package ru.kata.pp_3_1_5_rest.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kata.pp_3_1_5_rest.models.Role;
-import ru.kata.pp_3_1_5_rest.models.User;
-import ru.kata.pp_3_1_5_rest.services.RoleService;
-import ru.kata.pp_3_1_5_rest.services.UserService;
+import ru.kata.pp_3_1_5_rest.model.Role;
+import ru.kata.pp_3_1_5_rest.model.User;
+import ru.kata.pp_3_1_5_rest.service.RoleService;
+import ru.kata.pp_3_1_5_rest.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
@@ -24,19 +24,18 @@ public class Initializer {
 
     @PostConstruct
     public void init() {
-        Role role1 = new Role("ROLE_ADMIN");
-        Role role2 = new Role("ROLE_USER");
+        Role role1 = new Role(1L, "ROLE_ADMIN");
+        Role role2 = new Role(2L, "ROLE_USER");
 
-        roleService.saveRole(role1);
-        roleService.saveRole(role2);
+        roleService.save(role1);
+        roleService.save(role2);
 
-        User user1 = new User("Dmitry", "Chigir", 26, "admin", "admin",
+        User user1 = new User("ChegaZ", 26, "chegaz@mail.ru", "1996",
                 new HashSet<>(Set.of(role1)));
-
-        User user2 = new User("Maria", "Chigir", 28, "user", "user",
+        User user2 = new User("MongoDB", 28, "mongodb@mail.ru", "1996",
                 new HashSet<>(Set.of(role2)));
 
-        userService.saveUser(user1);
-        userService.saveUser(user2);
+        userService.save(user1);
+        userService.save(user2);
     }
 }
